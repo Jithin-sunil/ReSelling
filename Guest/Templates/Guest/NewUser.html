@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewUser</title>
+</head>
+<style>
+
+body{
+    background:#000;
+    background-image: url("{% static 'Main/images/pagani-huayra-bc-luxury-cars-most-popular-4k-5k-hd-desktop-screensavers-wallpapers-of-2025-for-apple-macbook-air-and-pro-imac-mac-mini-windows-pc-and-more-free-downlo.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;  
+    font-family:'Segoe UI', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    color:#fff;
+}
+
+/* Form Card */
+.form-card{
+    width:420px;
+    background:#000000bd;
+    padding:40px;
+    border-radius:18px;
+    border:2px solid #fe5b29;
+    backdrop-filter: blur(3px);   /* blur effect */
+    -webkit-backdrop-filter: blur(10px); /* for Safari */
+
+    box-shadow:
+        0 0 20px rgba(254,91,41,0.5),
+        0 0 40px rgba(254,91,41,0.3),
+        0 0 60px rgba(254,91,41,0.2);
+}
+
+/* Title */
+.form-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:30px;
+    font-size:28px;
+}
+
+/* Form group */
+.form-group{
+    margin-bottom:18px;
+}
+
+/* Labels */
+label{
+    display:block;
+    margin-bottom:6px;
+    color:#ffffff;
+    font-weight:600;
+}
+
+/* Inputs */
+input,
+select,
+textarea{
+    width:100%;
+    padding:10px 12px;
+    border-radius:6px;
+    border:1px solid #fe5b29;
+    background:#1b1b1b;
+    color:#fff;
+    outline:none;
+}
+
+/* Focus effect */
+input:focus,
+select:focus,
+textarea:focus{
+    box-shadow:0 0 8px rgba(254,91,41,0.7);
+}
+
+/* Button */
+.submit-btn{
+    width:100%;
+    background:#fe5b29;
+    color:#000;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+.submit-btn:hover{
+    box-shadow:0 0 15px rgba(254,91,41,0.8);
+}
+
+/* Cancel button */
+.reset-btn{
+    width:100%;
+    background:#333;
+    color:#fff;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    margin-top:10px;
+}
+
+</style>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="form-card">
+
+<h2 class="form-title">User Registration</h2>
+
+<div class="form-group">
+<label>Name</label>
+<input required type="text" name="txt_name"
+pattern="^[A-Z]+[a-zA-Z ]*$"
+title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter">
+</div>
+
+<div class="form-group">
+<label>Contact</label>
+<input required type="text" name="txt_contact"
+pattern="[7-9]{1}[0-9]{9}">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input required type="email" name="txt_email"
+pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$">
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<input required type="password" name="txt_password">
+</div>
+
+<div class="form-group">
+<label>Confirm Password</label>
+<input required type="password" name="txt_confirmpassword">
+</div>
+
+<div class="form-group">
+<label>Address</label>
+<textarea required name="txt_Address"></textarea>
+</div>
+
+<div class="form-group">
+<label>District</label>
+<select required name="sel_district" id="sel_district">
+<option value="">Select District</option>
+{%for i in Districtdata %}
+<option value="{{i.id}}">{{i.district_name}}</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="form-group">
+<label>Place</label>
+<select required name="sel_place" id="sel_place"></select>
+</div>
+
+<div class="form-group">
+<label>Photo</label>
+<input required type="file" name="img_photo">
+</div>
+
+<div class="form-group">
+<label>Proof</label>
+<input required type="file" name="img_proof">
+</div>
+
+<input type="submit" value="Submit" class="submit-btn">
+<input type="reset" value="Cancel" class="reset-btn">
+
+</div>
+
+</form>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () 
+    {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>
+{% if msg %}
+    <script>
+        alert('{{msg}}')
+        window.location = "{% url 'Guest:Index' %}"
+    </script>
+    {% endif %}

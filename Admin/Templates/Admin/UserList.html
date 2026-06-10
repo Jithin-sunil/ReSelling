@@ -1,0 +1,113 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+}
+
+/* Title */
+.page-title{
+    text-align:center;
+    color:#fe5b29;
+    margin:30px 0;
+}
+
+/* Table container */
+.table-container{
+    width:90%;
+    margin:auto;
+    background:#000;
+    padding:20px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.4);
+    overflow-x:auto;
+}
+
+/* Table */
+.user-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+/* Header */
+.user-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+    text-align:center;
+}
+
+/* Cells */
+.user-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+/* Images */
+.user-table img{
+    width:120px;
+    border-radius:6px;
+    border:2px solid #fe5b29;
+}
+
+</style>
+
+
+<h2 class="page-title">User List</h2>
+
+<div class="table-container">
+
+<table class="user-table">
+
+<tr>
+<th>SNO</th>
+<th>Name</th>
+<th>Contact</th>
+<th>Address</th>
+<th>District</th>
+<th>Place</th>
+<th>Photo</th>
+<th>Proof</th>
+</tr>
+
+{% for i in userdata %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+
+<td>{{i.user_name}}</td>
+
+<td>{{i.user_contact}}</td>
+
+<td>{{i.user_address}}</td>
+
+<td>{{i.user_place.district_name.district_name}}</td>
+
+<td>{{i.user_place.place_name}}</td>
+
+<td>
+<img src="{{i.user_photo.url}}">
+</td>
+
+<td>
+<img src="{{i.user_proof.url}}">
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,211 @@
+{% extends 'Dealer/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Vehicles</title>
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* Card */
+.vehicle-list-card{
+    width:95%;
+    margin:40px auto;
+    background:#000;
+    padding:25px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.4);
+}
+
+/* Title */
+.vehicle-list-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:20px;
+}
+
+/* Scroll container */
+.table-container{
+    overflow-x:auto;
+}
+
+/* Table */
+.vehicle-table{
+    width:100%;
+    border-collapse:collapse;
+    color:#fff;
+    min-width:1800px;
+}
+
+/* Header */
+.vehicle-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+    text-align:center;
+}
+
+/* Cells */
+.vehicle-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+/* Images */
+.vehicle-table img{
+    width:120px;
+    border-radius:6px;
+    border:2px solid #fe5b29;
+}
+
+/* Buttons */
+.action-btn{
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:600;
+    display:inline-block;
+    margin:3px;
+}
+
+.delete-btn{
+    background:#ff3b3b;
+    color:#fff;
+}
+
+.gallery-btn{
+    background:#fe5b29;
+    color:#000;
+}
+
+.action-btn:hover{
+    opacity:0.85;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form action="" method="post">
+{% csrf_token %}
+
+<div class="vehicle-list-card">
+
+<h2 class="vehicle-list-title">My Vehicles</h2>
+
+<div class="table-container">
+
+<table class="vehicle-table">
+
+<tr>
+<th>SNO</th>
+<th>Vehicle photo</th>
+<th>Registration number</th>
+<th>Registration Certificate</th>
+<th>Insurance Certificate</th>
+<th>Company</th>
+<th>Model Name</th>
+<th>Model Year</th>
+<th>Body Type</th>
+<th>Seating Capacity</th>
+<th>Door Count</th>
+<th>Fuel Type</th>
+<th>Engine Capacity</th>
+<th>Engine Configuration</th>
+<th>Power</th>
+<th>Torque</th>
+<th>Transmission Type</th>
+<th>Drive Train</th>
+<th>Ownership Count</th>
+<th>Mileage</th>
+<th>Odometer Reading</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+
+{%for i in vehicledata%}
+
+<tr>
+<td>{{forloop.counter}}</td>
+
+<td>
+<img src="{{i.vehicle_photo.url}}">
+</td>
+
+<td>{{i.registration_no}}</td>
+
+<td>
+<img src="{{i.vehicle_rc.url}}">
+</td>
+
+<td>
+<img src="{{i.vehicle_insurance.url}}">
+</td>
+
+<td>{{i.vehicle_company.company_name}}</td>
+<td>{{i.vehicle_model_name.model_name}}</td>
+<td>{{i.vehicle_model_year.modelyear_value}}</td>
+<td>{{i.vehicle_bodytype.bodytype_name}}</td>
+<td>{{i.vehicle_seating_capacity.seatingcapacity_value}}</td>
+<td>{{i.vehicle_door_count.doorcount_value}}</td>
+<td>{{i.vehicle_fuel_type.fueltype_name}}</td>
+<td>{{i.vehicle_engine_capacity}}</td>
+<td>{{i.vehicle_engine_configuration.engineconfiguration_value}}</td>
+<td>{{i.vehicle_power}}</td>
+<td>{{i.vehicle_torque}}</td>
+<td>{{i.vehicle_transmission_type.transmissiontype_name}}</td>
+<td>{{i.vehicle_drivetrain.drivetrain_type}}</td>
+<td>{{i.vehicle_ownership_count.OwnershipCount_type}}</td>
+<td>{{i.vehicle_mielage}}</td>
+<td>{{i.vehicle_odometer_reading}}</td>
+<td>{{i.vehicle_price}}</td>
+
+<td>
+
+<a class="action-btn delete-btn"
+href="{% url 'Dealer:delMyVehicles' i.id %}">
+Delete
+</a>
+
+<a class="action-btn gallery-btn"
+href="{% url 'Dealer:AddGallery' i.id %}">
+Add Gallery
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</form>
+
+{% if msg %}
+<script>
+alert('{{msg}}')
+window.location = "{% url 'Dealer:MyVehicles' %}"
+</script>
+{% endif %}
+
+</body>
+</html>
+
+{% endblock content %}

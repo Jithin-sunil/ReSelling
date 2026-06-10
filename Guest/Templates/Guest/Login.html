@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+
+body{
+    background:#000000;
+    background-image: url("{% static 'Main/images/pagani-huayra-bc-luxury-cars-most-popular-4k-5k-hd-desktop-screensavers-wallpapers-of-2025-for-apple-macbook-air-and-pro-imac-mac-mini-windows-pc-and-more-free-downlo.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;  
+    font-family:'Segoe UI', sans-serif;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* Login Card */
+.login-card{
+    width:400px;
+    background:#000000bd;
+    border:2px solid #fe5b29;
+    border-radius:12px;
+    padding:35px;
+    box-shadow:0 0 25px rgba(254,91,41,0.3);
+    backdrop-filter: blur(4px);   /* blur effect */
+    -webkit-backdrop-filter: blur(10px); /* for Safari */
+}
+
+/* Title */
+.login-title{
+    text-align:center;
+    margin-bottom:25px;
+    color:#fe5b29;
+}
+
+/* Table */
+.login-table{
+    width:100%;
+}
+
+/* Labels */
+.login-label{
+    padding:12px;
+    color:#fe5b29;
+    font-weight:600;
+}
+
+/* Inputs */
+.login-input{
+    width:100%;
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid #fe5b29;
+    background:#111;
+    color:#fff;
+}
+
+/* Button */
+.login-btn{
+    background:#fe5b29;
+    color:#000;
+    padding:10px 25px;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.login-btn:hover{
+    box-shadow:0 6px 15px rgba(254,91,41,0.4);
+}
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    
+    <form action="" method="post">
+
+<div class="login-card">
+<h2 align="center" style="font-family: sans-serif; color:#fe5b29;">Login</h2>
+<!-- <h2 class="login-title">Login</h2> -->
+
+{% csrf_token %}
+
+<table class="login-table">
+
+
+<tr class="login-label" >Email:</tr>
+<tr>
+<input required type="text" name="txt_email" class="login-input">
+</tr>
+<br>
+<br>
+
+
+<tr class="login-label">Password:</tr>
+<tr>
+<input required type="password" name="txt_password" class="login-input">
+</tr>
+
+
+<tr>
+<td colspan="2" align="center" style="padding-top:20px;">
+<input type="submit" value="Login" class="login-btn">
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</form>
+    {% if msg %}
+    <script>
+        alert('{{msg}}')
+        window.location = "{% url 'Guest:login' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

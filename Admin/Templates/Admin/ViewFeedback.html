@@ -1,0 +1,81 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+}
+
+/* Page Title */
+.page-title{
+    text-align:center;
+    color:#fe5b29;
+    margin:30px 0;
+}
+
+/* Table Card */
+.table-card{
+    width:70%;
+    margin:auto;
+    background:#000;
+    padding:25px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 15px rgba(254,91,41,0.4);
+}
+
+/* Table */
+.feedback-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+/* Header */
+.feedback-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+    text-align:center;
+}
+
+/* Cells */
+.feedback-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+</style>
+
+
+<h2 class="page-title">User Feedback</h2>
+
+<div class="table-card">
+
+<table class="feedback-table">
+
+<tr>
+<th>SNo</th>
+<th>User</th>
+<th>Content</th>
+</tr>
+
+{% for i in feedbackdata %}
+
+<tr>
+<td>{{forloop.counter}}</td>
+<td>{{i.user_id.user_name}}</td>
+<td>{{i.feedback_content}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,149 @@
+{% extends 'Dealer/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dealer Profile</title>
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* Profile Card */
+.profile-card{
+    width:600px;
+    margin:60px auto;
+    background:#000;
+    padding:35px;
+    border-radius:15px;
+    border:2px solid #fe5b29;
+
+    box-shadow:
+        0 0 15px rgba(254,91,41,0.6),
+        0 0 30px rgba(254,91,41,0.3);
+}
+
+/* Title */
+.profile-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:25px;
+}
+
+/* Table */
+.profile-table{
+    width:100%;
+    border-collapse:collapse;
+    color:#fff;
+}
+
+/* Table rows */
+.profile-table td{
+    padding:12px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+}
+
+/* Label column */
+.profile-label{
+    color:#fe5b29;
+    font-weight:600;
+    width:40%;
+}
+
+/* Image */
+.profile-logo{
+    border-radius:10px;
+    border:2px solid #fe5b29;
+}
+
+/* Buttons */
+.profile-btn{
+    display:inline-block;
+    padding:8px 16px;
+    background:#fe5b29;
+    color:#000;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:600;
+}
+
+.profile-btn:hover{
+    box-shadow:0 0 12px rgba(254,91,41,0.8);
+}
+
+/* Button row */
+.profile-actions{
+    text-align:center;
+    padding-top:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<form action="">
+
+<div class="profile-card">
+
+<h2 class="profile-title">Dealer Profile</h2>
+
+<table class="profile-table">
+
+<tr>
+<td colspan="2" align="center">
+<img class="profile-logo" width="200" src="{{dealerData.dealer_logo.url}}">
+</td>
+</tr>
+
+<tr>
+<td class="profile-label">Name</td>
+<td>{{dealerData.dealer_name}}</td>
+</tr>
+
+<tr>
+<td class="profile-label">Email</td>
+<td>{{dealerData.dealer_email}}</td>
+</tr>
+
+<tr>
+<td class="profile-label">Contact</td>
+<td>{{dealerData.dealer_contact}}</td>
+</tr>
+
+<tr>
+<td class="profile-label">Address</td>
+<td>{{dealerData.dealer_address}}</td>
+</tr>
+
+<tr>
+<td class="profile-label">District</td>
+<td>{{dealerData.dealer_place.district_name.district_name}}</td>
+</tr>
+
+<tr>
+<td class="profile-label">Place</td>
+<td>{{dealerData.dealer_place.place_name}}</td>
+</tr>
+
+<tr class="profile-actions" >
+<td colspan="2">
+<a class="profile-btn" href="{% url 'Dealer:EditProfile' %}">Edit Profile</a> <a class="profile-btn" href="{% url 'Dealer:ChangePassword' %}">Change Password</a>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</form>
+
+</body>
+</html>
+{% endblock content %}

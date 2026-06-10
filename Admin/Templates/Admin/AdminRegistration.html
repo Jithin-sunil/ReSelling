@@ -1,0 +1,211 @@
+
+{% extends 'Admin/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Registration</title>
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+}
+
+/* Card */
+.admin-card{
+    width:500px;
+    margin:40px auto;
+    background:#000;
+    padding:30px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.4);
+}
+
+/* Title */
+.admin-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:20px;
+}
+
+/* Table */
+.admin-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.admin-table td{
+    padding:10px;
+}
+
+/* Inputs */
+.admin-input{
+    width:100%;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #fe5b29;
+    background:#111;
+    color:#fff;
+}
+
+/* Buttons */
+.admin-btn{
+    padding:8px 18px;
+    border:none;
+    border-radius:6px;
+    background:#fe5b29;
+    color:#000;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.admin-btn:hover{
+    box-shadow:0 0 10px rgba(254,91,41,0.8);
+}
+
+.reset-btn{
+    background:#333;
+    color:#fff;
+}
+
+/* List Table */
+.list-table{
+    width:70%;
+    margin:40px auto;
+    border-collapse:collapse;
+    color:#fff;
+}
+
+.list-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+}
+
+.list-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+/* Action links */
+.action-link{
+    color:#fe5b29;
+    text-decoration:none;
+    font-weight:600;
+    margin:0 5px;
+}
+
+.action-link:hover{
+    text-decoration:underline;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form action="" method="post">
+{% csrf_token %}
+
+<!-- <div class="admin-card"> -->
+
+<h2 class="admin-title">Admin List</h2>
+
+<!-- <table class="admin-table">
+
+<tr>
+<td>Name</td>
+<td>
+<input class="admin-input" required type="text" name="txt_name"
+value="{{AdminRegistrationeditdata.admin_name}}"
+pattern="^[A-Z]+[a-zA-Z ]*$"
+title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter">
+</td>
+</tr>
+
+<tr>
+<td>Contact</td>
+<td>
+<input class="admin-input" required type="text" name="txt_contact"
+value="{{AdminRegistrationeditdata.admin_contact}}"
+pattern="[7-9]{1}[0-9]{9}"
+title="Phone number with 7-9 and remaining 9 digit with 0-9">
+</td>
+</tr>
+
+<tr>
+<td>Email</td>
+<td>
+<input class="admin-input" required type="email" name="txt_email"
+value="{{AdminRegistrationeditdata.admin_email}}"
+pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$">
+</td>
+</tr>
+
+<tr>
+<td>Password</td>
+<td>
+<input class="admin-input" type="password" name="txt_password"
+pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 characters"
+required>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<input class="admin-btn reset-btn" type="reset" value="Cancel">
+</td>
+
+<td align="center">
+<input class="admin-btn" type="submit" value="Submit">
+</td>
+</tr>
+
+</table>
+
+</div> -->
+
+
+<table class="list-table">
+
+<tr>
+<th>SNO</th>
+<th>Name</th>
+<th>Contact</th>
+<th>Email</th>
+<!-- <th>Action</th> -->
+</tr>
+
+{%for i in admin%}
+
+<tr>
+<td>{{forloop.counter}}</td>
+<td>{{i.admin_name}}</td>
+<td>{{i.admin_contact}}</td>
+<td>{{i.admin_email}}</td>
+
+<!-- <td>
+<a class="action-link" href="{% url 'Admin:delAdminRegistration' i.id %}">Delete</a>
+<a class="action-link" href="{% url 'Admin:edtAdminRegistration' i.id %}">Edit</a>
+</td> -->
+</tr>
+
+{% endfor %}
+
+</table>
+
+</form>
+
+</body>
+</html>
+{% endblock content %}

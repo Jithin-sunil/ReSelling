@@ -1,0 +1,361 @@
+{% extends 'Dealer/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Registration</title>
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* Card */
+.vehicle-card{
+    width:650px;
+    margin:50px auto;
+    background:#000;
+    padding:35px;
+    border-radius:15px;
+    border:2px solid #fe5b29;
+
+    box-shadow:
+        0 0 15px rgba(254,91,41,0.6),
+        0 0 30px rgba(254,91,41,0.3);
+}
+
+/* Title */
+.vehicle-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:25px;
+}
+
+/* Table */
+.vehicle-table{
+    width:100%;
+    border-collapse:collapse;
+    color:#fff;
+}
+
+/* Cells */
+.vehicle-table td{
+    padding:12px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+}
+
+/* Label column */
+.vehicle-label{
+    color:#fe5b29;
+    font-weight:600;
+    width:40%;
+  
+}
+
+/* Inputs */
+.vehicle-input,
+.vehicle-select{
+    width:100%;
+    padding:8px 10px;
+    border-radius:6px;
+    border:1px solid #fe5b29;
+    background:#111;
+    color:#fff;
+}
+
+/* File input */
+input[type="file"]{
+    color:#fff;
+}
+
+/* Buttons */
+.vehicle-btn{
+    padding:10px 20px;
+    background:#fe5b29;
+    color:#000;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.vehicle-btn:hover{
+    box-shadow:0 0 12px rgba(254,91,41,0.8);
+}
+
+/* Cancel button */
+.reset-btn{
+    background:#333;
+    color:#fff;
+}
+
+/* Custom File Upload */
+.file-upload{
+    width:100%;
+    border:1px solid #fe5b29;
+    border-radius:6px;
+    background:#111;
+    padding:6px;
+    display:flex;
+    align-items:center;
+}
+
+.file-upload input[type="file"]{
+    color:#fff;
+    background:transparent;
+    border:none;
+}
+
+.file-upload input[type="file"]::file-selector-button{
+    background:#e6e6e6;
+    border:none;
+    padding:6px 12px;
+    border-radius:4px;
+    margin-right:10px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="vehicle-card">
+
+<h2 class="vehicle-title">Vehicle Registration</h2>
+
+<table class="vehicle-table">
+
+<tr>
+<td class="vehicle-label">Registration Number</td>
+<td><input required class="vehicle-input" required type="text" name="txt_reg_no"></td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Registration Certificate (RC)</td>
+<td>
+<div class="file-upload">
+<input required type="file" name="img_RC" required>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Insurance Certificate</td>
+<td>
+<div class="file-upload">
+<input required type="file" name="img_IC" required>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Vehicle Photo</td>
+<td>
+<div class="file-upload">
+<input required type="file" name="img_vehicle" required>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Company</td>
+<td>
+<select required class="vehicle-select" name="sel_company" id="sel_company" required>
+<option value="">...select company...</option>
+{% for i in Company %}
+<option value="{{i.id}}">{{i.company_name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Model Name</td>
+<td>
+<select required class="vehicle-select" name="sel_model" id="sel_model" required>
+<option value="">..select model..</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Model Year</td>
+<td>
+<select required class="vehicle-select" name="sel_modelyear" required>
+<option value="">...select ModelYear...</option>
+{%for i in Modelyear %}
+<option value="{{i.id}}">{{i.modelyear_value}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Body Type</td>
+<td>
+<select  required class="vehicle-select" name="sel_Bodytype" required>
+<option value="">..select Bodytype..</option>
+{% for i in Bodytype %}
+<option value="{{i.id}}">{{i.bodytype_name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Seating Capacity</td>
+<td>
+<select required class="vehicle-select" name="sel_Seatingcapacity" required>
+<option value="">..select Seatingcapacity..</option>
+{% for i in Seatingcapacity %}
+<option value="{{i.id}}">{{i.seatingcapacity_value}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Door Count</td>
+<td>
+<select required class="vehicle-select" name="sel_Doorcount" required>
+<option value="">..select Doorcount..</option>
+{% for i in Doorcount %}
+<option value="{{i.id}}">{{i.doorcount_value}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Fuel Type</td>
+<td>
+<select required class="vehicle-select" name="sel_Fueltype" required>
+<option value="">..select Fueltype..</option>
+{% for i in Fueltype %}
+<option value="{{i.id}}">{{i.fueltype_name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Engine Capacity</td>
+<td><input required class="vehicle-input" type="text" name="txt_EngineCapacity" required></td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Engine Configuration</td>
+<td>
+<select required class="vehicle-select" name="sel_Engineconf">
+<option value="">..select Engineconfiguration..</option>
+{% for i in Engineconf %}
+<option value="{{i.id}}">{{i.engineconfiguration_value}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Power</td>
+<td><input required class="vehicle-input" type="text" name="txt_power" required></td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Torque</td>
+<td><input required class="vehicle-input" type="text" name="txt_torque" required></td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Transmission Type</td>
+<td>
+<select required class="vehicle-select" name="sel_Transmission" required>
+<option value="">..select Transmission..</option>
+{% for i in Transmission %}
+<option value="{{i.id}}">{{i.transmissiontype_name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Drive Train</td>
+<td>
+<select required class="vehicle-select" name="sel_Drivetrain" required>
+<option value="">..select Drivetrain..</option>
+{% for i in Drivetrain %}
+<option value="{{i.id}}">{{i.drivetrain_type}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Ownership Count</td>
+<td>
+<select required class="vehicle-select" name="sel_Ownership" required>
+<option value="">..select OwnershipCount..</option>
+{% for i in Ownership %}
+<option value="{{i.id}}">{{i.OwnershipCount_type}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Mileage</td>
+<td><input required class="vehicle-input" type="text" name="txt_mielage" required></td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Odometer Reading</td>
+<td><input required class="vehicle-input" type="text" name="txt_odometerreading" required></td>
+</tr>
+
+<tr>
+<td class="vehicle-label">Vehicle Price</td>
+<td><input required class="vehicle-input" type="text" name="txt_VehiclePrice" required></td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input class="vehicle-btn reset-btn" type="reset" value="Cancel">
+<input class="vehicle-btn" type="submit" value="Submit">
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</form>
+
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$("#sel_company").change(function () 
+{
+    var did = $(this).val();
+    var ur = "{% url 'Dealer:ajaxmodel' %}"
+    $.ajax({
+        url: ur,
+        data: { did: did },
+        success: function (data) {
+            $("#sel_model").html(data);
+        },
+    });
+});
+</script>
+
+{% endblock content %}

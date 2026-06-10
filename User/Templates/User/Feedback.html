@@ -1,0 +1,157 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+    color:#fff;
+}
+
+/* Wrapper */
+.feedback-wrapper{
+    width:80%;
+    margin:auto;
+    padding:50px 0;
+}
+
+/* Card */
+.feedback-card{
+    background:#000;
+    border:2px solid #fe5b29;
+    border-radius:12px;
+    padding:30px;
+    margin-bottom:40px;
+    box-shadow:0 0 20px rgba(254,91,41,0.25);
+}
+
+/* Table */
+.feedback-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+/* Header */
+.feedback-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:12px;
+    text-align:center;
+    font-weight:600;
+}
+
+/* Cells */
+.feedback-table td{
+    border:1px solid #fe5b29;
+    padding:12px;
+    text-align:center;
+}
+
+/* Label */
+.form-label{
+    color:#fe5b29;
+    font-weight:600;
+}
+
+/* Input */
+.form-input{
+    width:100%;
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid #fe5b29;
+    background:#111;
+    color:#fff;
+}
+
+/* Button */
+.submit-btn{
+    background:#fe5b29;
+    color:#000;
+    padding:8px 25px;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.submit-btn:hover{
+    box-shadow:0 5px 15px rgba(254,91,41,0.4);
+}
+
+/* Delete Link */
+.delete-link{
+    color:#ff4d4d;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.delete-link:hover{
+    text-decoration:underline;
+}
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+</head>
+<body>
+    <div class="feedback-wrapper">
+
+<form action="" method="post">
+{% csrf_token %}
+
+<div class="feedback-card">
+
+<table class="feedback-table">
+
+<tr>
+<td class="form-label">Content</td>
+<td>
+<input required type="text" name="txt_Content" class="form-input">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input type="submit" value="Submit" class="submit-btn">
+</td>
+</tr>
+
+</table>
+
+</div>
+
+
+<table class="feedback-table">
+
+<tr>
+<th>SNo</th>
+<th>Content</th>
+<th>Date</th>
+<th>Action</th>
+</tr>
+
+{% for i in feedbackdata %}
+<tr>
+<td>{{forloop.counter}}</td>
+<td>{{i.feedback_content}}</td>
+<td>{{i.feedback_date}}</td>
+<td>
+<a class="delete-link" href="{% url 'User:delFeedback' i.id %}">Delete</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</form>
+
+</div>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,305 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewDealer</title>
+</head>
+<style>
+
+body{
+    background:#000000;
+    background-image: url("{% static 'Main/images/pagani-huayra-bc-luxury-cars-most-popular-4k-5k-hd-desktop-screensavers-wallpapers-of-2025-for-apple-macbook-air-and-pro-imac-mac-mini-windows-pc-and-more-free-downlo.jpg' %}");
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;   */
+    font-family:'Segoe UI', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* Card */
+.dealer-card{
+    width:520px;
+    background:#000000bd;
+    padding:45px;
+    border-radius:18px;
+    color: #fff;
+    border:2px solid #fe5b29;
+    backdrop-filter: blur(3px);   /* blur effect */
+    -webkit-backdrop-filter: blur(10px); /* for Safari */
+
+    /* strong glow like image */
+    box-shadow:
+        0 0 15px rgba(254,91,41,0.7),
+        0 0 35px rgba(254,91,41,0.4),
+        0 0 60px rgba(254,91,41,0.2);
+}
+
+/* Title */
+.dealer-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:30px;
+    font-size:28px;
+}
+
+/* Form spacing */
+.form-group{
+    margin-bottom:20px;
+}
+
+/* Labels */
+.form-label{
+    color:#ffffff;
+    font-weight:600;
+    display:block;
+    margin-bottom:8px;
+}
+
+/* Inputs */
+.form-input,
+.form-select,
+.form-textarea{
+    width:100%;
+    padding:12px 14px;
+    border-radius:8px;
+    border:1px solid #fe5b29;
+    background:#111;
+    color:#fff;
+    outline:none;
+}
+
+/* Focus glow */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus{
+    box-shadow:0 0 10px rgba(254,91,41,0.6);
+}
+
+/* File input styling */
+input[type="file"]{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #fe5b29;
+    background:#111;
+    color:#fff;
+}
+
+/* Buttons */
+.form-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#fe5b29;
+    color:#000;
+    font-weight:600;
+    cursor:pointer;
+    margin-bottom:10px;
+}
+
+.form-btn:hover{
+    background:#ff6a3c;
+    box-shadow:0 0 18px rgba(254,91,41,0.8);
+}
+
+/* Cancel button */
+.form-btn-reset{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#3a3a3a;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.form-btn-reset:hover{
+    background:#4a4a4a;
+}
+
+</style>
+
+<body>
+    <div class="dealer-wrapper">
+
+<form action="" method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="dealer-card">
+
+<h2 class="dealer-title">Dealer Registration</h2>
+
+
+<div class="form-group">
+<label class="form-label">Name</label>
+<input class="form-input" required type="text" name="txt_name"
+pattern="^[A-Z]+[a-zA-Z ]*$"
+title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Contact</label>
+<input class="form-input" required type="text" name="txt_contact"
+pattern="[7-9]{1}[0-9]{9}"
+title="Phone number with 7-9 and remaining 9 digit with 0-9">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Email</label>
+<input class="form-input" required type="email" name="txt_email"
+pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Password</label>
+<input class="form-input" required type="password" name="txt_password"
+pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Confirm Password</label>
+<input class="form-input" required type="password" name="txt_ConfirmPassword">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">District</label>
+<select class="form-select" name="sel_district" id="sel_district" required>
+<option value="">...Select District...</option>
+{% for i in District %}
+<option value="{{i.id}}">{{i.district_name}}</option>
+{% endfor %}
+</select>
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Place</label>
+<select class="form-select" required name="sel_place" id="sel_place"></select>
+</div>
+
+
+<div class="form-group">
+<label class="form-label">License Number</label>
+<input class="form-input" required type="text" name="txt_LicenseNumber">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Establish Date</label>
+<input class="form-input" required type="date" name="txt_EstablishDate">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Owner Name</label>
+<input class="form-input" required type="text" name="txt_OwnerName"
+pattern="^[A-Z]+[a-zA-Z ]*$">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Owner Contact</label>
+<input class="form-input" required type="text" name="txt_OwnerContactNumber"
+pattern="[7-9]{1}[0-9]{9}">
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Owner Aadhar</label>
+<input class="form-input" type="text" name="txt_OwnerAadharnumber"
+id="aadhar" required onblur="validateAadhar()">
+<span id="aadharError" style="color:red;"></span>
+</div>
+
+
+<div class="form-group">
+<label class="form-label" >License Proof</label>
+<input type="file" name="img_LicenseProof" required>
+</div>
+
+
+<div class="form-group">
+<label class="form-label"   >Owner Proof</label>
+<input type="file" name="img_OwnerProof" required>
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Owner Photo</label>
+<input type="file" name="img_OwnerPhoto" required>
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Logo</label>
+<input type="file" name="img_Logo" required>
+</div>
+
+
+<div class="form-group">
+<label class="form-label">Address</label>
+<textarea class="form-textarea" required name="txt_Address"></textarea>
+</div>
+
+
+<div class="form-group">
+<button class="form-btn" type="submit">Submit</button>
+<button class="form-btn-reset" type="reset">cancel</button>
+</div>
+
+
+</div>
+
+</form>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () 
+    {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>
+{% if msg %}
+    <script>
+        alert('{{msg}}')
+        window.location = "{% url 'Guest:Index' %}"
+    </script>
+    {% endif %}
+
+<script>
+function validateAadhar(){
+    var aadhar = document.getElementById("aadhar").value;
+    var regex = /^[0-9]{12}$/;
+
+    if(!regex.test(aadhar)){
+        document.getElementById("aadharError").innerHTML = "Enter valid 12 digit Aadhar number";
+        return false;
+    }else{
+        document.getElementById("aadharError").innerHTML = "";
+        return true;
+    }
+}
+</script>

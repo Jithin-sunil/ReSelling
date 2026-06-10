@@ -1,0 +1,203 @@
+{% extends 'Admin/Header.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+}
+
+/* Title */
+.page-title{
+    text-align:center;
+    color:#fe5b29;
+    margin:30px 0;
+}
+
+/* Table container */
+.table-container{
+    width:95%;
+    margin:auto;
+    background:#000;
+    padding:20px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.4);
+    overflow-x:auto;
+}
+
+/* Table */
+.dealer-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1400px;
+}
+
+/* Header */
+.dealer-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+    text-align:center;
+}
+
+/* Cells */
+.dealer-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+/* Images */
+.dealer-table img{
+    width:120px;
+    border-radius:6px;
+    border:2px solid #fe5b29;
+}
+
+/* Buttons */
+.accept-btn{
+    background:#28a745;
+    color:#fff;
+    padding:5px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.reject-btn{
+    background:#dc3545;
+    color:#fff;
+    padding:5px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.accept-btn:hover{
+    box-shadow:0 0 10px rgba(40,167,69,0.7);
+}
+
+.reject-btn:hover{
+    box-shadow:0 0 10px rgba(220,53,69,0.7);
+}
+
+</style>
+
+
+<h2 class="page-title">Dealer List</h2>
+
+<div class="table-container">
+
+<table class="dealer-table">
+
+<tr>
+<th>SNO</th>
+<th>Dealer Logo</th>
+<th>Dealer Name</th>
+<th>Dealer Contact</th>
+<th>Dealer Address</th>
+<th>Dealer District</th>
+<th>Dealer Place</th>
+<th>License Number</th>
+<th>License Proof</th>
+<th>Owner Name</th>
+<th>Owner Contact</th>
+<th>Owner Aadhar</th>
+<th>Owner Photo</th>
+<th>Owner Proof</th>
+<th colspan="2">Action</th>
+</tr>
+
+{% for i in dealerdata %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+
+<td>
+<img src="{{i.dealer_logo.url}}">
+</td>
+
+<td>{{i.dealer_name}}</td>
+
+<td>{{i.dealer_contact}}</td>
+
+<td>{{i.dealer_address}}</td>
+
+<td>{{i.dealer_place.district_name.district_name}}</td>
+
+<td>{{i.dealer_place.place_name}}</td>
+
+<td>{{i.license_no}}</td>
+
+<td>
+<img src="{{i.license_proof.url}}">
+</td>
+
+<td>{{i.owner_name}}</td>
+
+<td>{{i.owner_contact}}</td>
+
+<td>{{i.owner_aadhar_no}}</td>
+
+<td>
+<img src="{{i.owner_photo.url}}">
+</td>
+
+<td>
+<img src="{{i.owner_proof.url}}">
+</td>
+{% if i.dealer_status == 0 %}
+<td>
+<a class="accept-btn"
+href="{% url 'Admin:Acceptdealer' i.id %}">
+Accept
+</a>
+</td>
+<td>
+<a class="reject-btn"
+href="{% url 'Admin:Rejectdealer' i.id %}">
+Reject
+</a>
+</td>
+{% elif i.dealer_status == 1 %}
+<td>
+<span style="color: #28a745;" >Accepted</span>
+</td>
+<td>
+<a class="reject-btn"
+href="{% url 'Admin:Rejectdealer' i.id %}">
+Reject
+</a>
+</td>
+{% elif i.dealer_status == 2 %}
+<td>
+<span style="color: #dc3545;" >Rejected</span>
+</td>
+<td>
+<a class="accept-btn"
+href="{% url 'Admin:Acceptdealer' i.id %}">
+Accept
+</a>
+</td>
+{% endif %}
+</tr >
+{% endfor %}
+
+</table>
+
+</div>
+
+
+{% if msg %}
+<script>
+alert('{{msg}}')
+window.location = "{% url 'Admin:DealerList' %}"
+</script>
+{% endif %}
+
+{% endblock content %}

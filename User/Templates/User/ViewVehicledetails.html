@@ -1,0 +1,241 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+    color:#fff;
+}
+
+/* Wrapper */
+.details-wrapper{
+    display:flex;
+    justify-content:center;
+    padding:50px 0;
+}
+
+/* Main Card */
+.details-card{
+    width:900px;
+    background:#000;
+    border:2px solid #fe5b29;
+    border-radius:15px;
+    padding:40px 60px;
+    box-shadow:0 0 25px rgba(254,91,41,0.25);
+}
+
+/* Table */
+.details-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+/* Rows */
+.details-table tr{
+    border-bottom:1px solid rgba(255,255,255,0.15);
+}
+
+/* Cells */
+.details-table td{
+    padding:16px 10px;
+    font-size:15px;
+}
+
+/* Left labels */
+.details-label{
+    color:#fe5b29;
+    font-weight:600;
+    width:35%;
+}
+
+/* Images */
+.details-img{
+    width:200px;
+    height:140px;
+    object-fit:cover;
+    border-radius:10px;
+    border:2px solid #fe5b29;
+}
+
+/* Price highlight */
+.price-value{
+    font-size:22px;
+    font-weight:700;
+    color:#fe5b29;
+}
+
+/* Book button */
+.book-btn{
+    display:inline-block;
+    background:#fe5b29;
+    color:#000;
+    padding:12px 35px;
+    border-radius:8px;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.3s ease;
+}
+
+.book-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(254,91,41,0.4);
+}
+.booking-link{
+    display:inline-block;
+    margin-top:10px;
+    color:#fe5b29;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.booking-link:hover{
+    text-decoration:underline;
+}
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Vehicle details</title>
+</head>
+<body>
+    
+    <div class="details-wrapper">
+<form action="" method="post">
+{% csrf_token %}
+<h1 style="color:#fff;"  align="center">Vehicle details</h1>
+<br>
+<div class="details-card">
+<table class="details-table">
+
+<tr>
+    <td class="details-label">Dealer Name</td>
+    <td>{{vehicledetdata.dealer.dealer_name}}</td>
+    <td colspan="2" align="center" style="padding-top:25px; border-bottom:none;" ><a class="book-btn" href="{% url 'User:DealerDetails' vehicledetdata.dealer.id %}">View Deatails</a></td>
+</tr>
+
+<tr>
+    <td class="details-label">Registration Number</td>
+    <td>{{vehicledetdata.registration_no}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Registration Certificate</td>
+    <td><img class="details-img" src="{{vehicledetdata.vehicle_rc.url}}"></td>
+</tr>
+
+<tr>
+    <td class="details-label">Insurance Certificate</td>
+    <td><img class="details-img" src="{{vehicledetdata.vehicle_insurance.url}}"></td>
+</tr>
+
+<tr>
+    <td class="details-label">Vehicle Photo</td>
+    <td><img class="details-img" src="{{vehicledetdata.vehicle_photo.url}}"></td>
+    <td colspan="2" align="center" style="padding-top:25px; border-bottom:none;" ><a class="book-btn"  href="{% url 'User:ViewGallery' vehicledetdata.id %}">View Gallery</a></td>
+    
+</tr>
+
+<tr>
+    <td class="details-label">Company</td>
+    <td>{{vehicledetdata.vehicle_company.company_name}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Model Name</td>
+    <td>{{vehicledetdata.vehicle_model_name.model_name}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Model Year</td>
+    <td>{{vehicledetdata.vehicle_model_year.modelyear_value}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Body Type</td>
+    <td>{{vehicledetdata.vehicle_bodytype.bodytype_name}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Seating Capacity</td>
+    <td>{{vehicledetdata.vehicle_seating_capacity.seatingcapacity_value}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Door Count</td>
+    <td>{{vehicledetdata.vehicle_door_count.doorcount_value}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Fuel Type</td>
+    <td>{{vehicledetdata.vehicle_fuel_type.fueltype_name}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Engine Capacity</td>
+    <td>{{vehicledetdata.vehicle_engine_capacity}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Engine Configuration</td>
+    <td>{{vehicledetdata.vehicle_engine_configuration.engineconfiguration_value}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Power</td>
+    <td>{{vehicledetdata.vehicle_power}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Torque</td>
+    <td>{{vehicledetdata.vehicle_torque}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Transmission Type</td>
+    <td>{{vehicledetdata.vehicle_transmission_type.transmissiontype_name}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Drive Train</td>
+    <td>{{vehicledetdata.vehicle_drivetrain.drivetrain_type}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Ownership Count</td>
+    <td>{{vehicledetdata.vehicle_ownership_count.OwnershipCount_type}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Mileage</td>
+    <td>{{vehicledetdata.vehicle_mielage}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Odometer Reading</td>
+    <td>{{vehicledetdata.vehicle_odometer_reading}}</td>
+</tr>
+
+<tr>
+    <td class="details-label">Price</td>
+    <td class="price-value">₹ {{vehicledetdata.vehicle_price}}</td>
+</tr>
+
+<tr>
+    <td colspan="3" align="center" style="padding-top:25px; border-bottom:none;">
+        <a class="book-btn" href="{% url 'User:Message' vehicledetdata.id %}">Message</a>
+        <a class="book-btn" href="{% url 'User:BookingConfirmation' vehicledetdata.id %}">Book</a>
+        
+    </td>
+</tr>
+
+</table>
+</div>
+</form>
+</div>
+</html>
+{% endblock content %}

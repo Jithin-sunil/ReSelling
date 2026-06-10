@@ -1,0 +1,143 @@
+{% extends 'Dealer/Header.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+}
+
+/* Page title */
+.page-title{
+    text-align:center;
+    color:#fe5b29;
+    margin:30px 0 20px 0;
+}
+
+/* Table container */
+.table-container{
+    width:85%;
+    margin:20px auto;
+    background:#000;
+    padding:20px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 15px rgba(254,91,41,0.4);
+}
+
+/* Table */
+.data-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+/* Header */
+.data-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+    text-align:center;
+}
+
+/* Cells */
+.data-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+/* Reply button */
+.reply-btn{
+    background:#fe5b29;
+    color:#000;
+    padding:5px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.reply-btn:hover{
+    box-shadow:0 0 10px rgba(254,91,41,0.8);
+}
+
+</style>
+
+
+<h2 class="page-title">Messages</h2>
+
+<div class="table-container">
+
+<table class="data-table">
+
+<tr>
+<th>SNo</th>
+<th>Date</th>
+<th>User Name</th>
+<th>Vehicle Name</th>
+<th>Vehicle Reg.no</th>
+<th>Title</th>
+<th>Content</th>
+<th>Action</th>
+</tr>
+
+{% for i in messagedata %}
+
+<tr>
+<td>{{forloop.counter}}</td>
+<td>{{i.message_date}}</td>
+<td>{{i.user_id.user_name}}</td>
+<td>{{i.vehicle_id.vehicle_model_name.model_name}}</td>
+<td>{{i.vehicle_id.registration_no}}</td>
+<td>{{i.message_title}}</td>
+<td>{{i.message_content}}</td>
+<td>
+<a class="reply-btn" href="{% url 'Dealer:Reply' i.id %}">Reply</a>
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+
+
+<h2 class="page-title">Replied messages</h2>
+
+<div class="table-container">
+
+<table class="data-table">
+
+<tr>
+<th>SNo</th>
+<th>Date</th>
+<th>User Name</th>
+<th>Vehicle Name</th>
+<th>Vehicle Reg.no</th>
+<th>Title</th>
+<th>Content</th>
+<th>Reply</th>
+</tr>
+
+{% for i in replydata %}
+
+<tr>
+<td>{{forloop.counter}}</td>
+<td>{{i.message_date}}</td>
+<td>{{i.user_id.user_name}}</td>
+<td>{{i.vehicle_id.vehicle_model_name.model_name}}</td>
+<td>{{i.vehicle_id.registration_no}}</td>
+<td>{{i.message_title}}</td>
+<td>{{i.message_content}}</td>
+<td>{{i.message_reply}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+{% endblock content %}

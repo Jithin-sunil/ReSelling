@@ -1,0 +1,159 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+<h1>hi</h1>
+<style>
+
+/* Page Background */
+body{
+    background:#111;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Wrapper */
+.profile-wrapper{
+    display:flex;
+    justify-content:center;
+    padding:60px 0;
+}
+
+/* Main Card */
+.profile-card{
+    width:750px;
+    background:#000;
+    border-radius:15px;
+    border:2px solid #fe5b29;
+    padding:40px 60px;
+    color:#fff;
+    box-shadow:0 0 25px rgba(254,91,41,0.3);
+}
+
+/* Profile Image */
+.profile-img{
+    width:170px;
+    height:170px;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid #fe5b29;
+    padding:5px;
+    background:#111;
+}
+
+/* Table */
+.profile-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+}
+
+/* Row separator */
+.profile-table tr{
+    border-bottom:1px solid rgba(255,255,255,0.15);
+}
+
+/* Table cells */
+.profile-table td{
+    padding:18px 10px;
+    font-size:16px;
+}
+
+/* Left labels */
+.profile-label{
+    color:#fe5b29;
+    font-weight:600;
+    width:30%;
+}
+
+/* Buttons row */
+.profile-actions{
+    text-align:center;
+    border-bottom:none !important;
+}
+
+/* Buttons */
+.profile-actions a{
+    display:inline-block;
+    padding:12px 30px;
+    margin:20px 15px 0;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    transition:0.3s ease;
+}
+
+/* Orange Button */
+.edit-btn{
+    background:#fe5b29;
+    color:#000;
+}
+
+/* Outline Button */
+.password-btn{
+    background:#fe5b29;
+    color:#000;
+}
+
+/* Hover */
+.profile-actions a:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 15px rgba(254,91,41,0.4);
+}
+
+</style>
+
+<div class="profile-wrapper">
+<form action="">
+    <div class="profile-card">
+        <h1 style="color:#fff;"  align="center">User Profile</h1>
+
+        <table class="profile-table">
+            <tr>
+                <td colspan="2" align="center">
+                    <img class="profile-img" src="{{userData.user_photo.url}}" alt="">
+                </td>
+            </tr>
+            <tr>
+                <td class="profile-label">Name</td>
+                <td>{{userData.user_name}}</td>
+            </tr>
+            <tr>
+                <td class="profile-label">Email</td>
+                <td>{{userData.user_email}}</td>
+            </tr>
+            <tr>
+                <td class="profile-label">Contact</td>
+                <td>{{userData.user_contact}}</td>
+            </tr>
+            <tr>
+                <td class="profile-label">Address</td>
+                <td>{{userData.user_address}}</td>
+            </tr>
+            <tr>
+                <td class="profile-label">District</td>
+                <td>{{userData.user_place.district_name.district_name}}</td>
+            </tr>
+            <tr>
+                <td class="profile-label">Place</td>
+                <td>{{userData.user_place.place_name}}</td>
+            </tr>
+            <tr class="profile-actions" align="center">
+                <td colspan="2">
+                    <a class="edit-btn" href="{% url 'User:EditProfile' %}">Edit Profile</a>
+                    <a class="password-btn" href="{% url 'User:ChangePassword' %}">Change Password</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</div>
+</body>
+{% endblock content %}

@@ -1,0 +1,333 @@
+{% extends 'Dealer/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ViewBooking</title>
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* Card container */
+.booking-card{
+    width:95%;
+    margin:40px auto;
+    background:#000;
+    padding:25px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.4);
+}
+
+/* Title */
+.booking-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:20px;
+}
+
+/* Scroll table */
+.table-container{
+    overflow-x:auto;
+}
+
+/* Table */
+.booking-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1200px;
+    color:#fff;
+}
+
+/* Header */
+.booking-table th{
+    background:#fe5b29;
+    color:#000;
+    padding:10px;
+    text-align:center;
+}
+
+/* Cells */
+.booking-table td{
+    padding:10px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+    text-align:center;
+}
+
+/* Images */
+.booking-table img{
+    width:120px;
+    border-radius:6px;
+    border:2px solid #fe5b29;
+}
+
+/* Action buttons */
+.action-btn{
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:600;
+    display:inline-block;
+    margin:3px;
+}
+
+/* Accept button */
+.accept-btn{
+    background:#28a745;
+    color:#fff;
+}
+
+/* Reject button */
+.reject-btn{
+    background:#dc3545;
+    color:#fff;
+}
+
+/* User details link */
+.details-link{
+    color:#fe5b29;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.details-link:hover{
+    text-decoration:underline;
+}
+/* Status badges */
+
+.status-accepted{
+    /* background:#28a745; */
+    color:#28a745;
+    padding:5px 10px;
+    border-radius:5px;
+    font-weight:600;
+}
+
+.status-rejected{
+    /* background:#dc3545; */
+    color:#dc3545;
+    padding:5px 10px;
+    border-radius:5px;
+    font-weight:600;
+}
+
+.status-paid{
+    /* background:#17a2b8; */
+    color:#17a2b8;
+    padding:5px 10px;
+    border-radius:5px;
+    font-weight:600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form action="" method="post">
+
+<div class="booking-card">
+
+<h2 class="booking-title">Vehicle Bookings</h2>
+
+<div class="table-container">
+
+<table class="booking-table">
+
+<tr>
+<th>SNo</th>
+<th>User</th>
+<th>Photo</th>
+<th>Company</th>
+<th>Model Name</th>
+<th>Registration No.</th>
+<th>Model Year</th>
+<th>Body Type</th>
+<th>Fuel Type</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+{% for i in bookdata %}
+{% if i.booking_status < 2 or i.booking_status == 3 %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+
+<td>
+{{i.user_id.user_name}} <br>
+<a class="details-link" href="{% url 'Dealer:UserDetails' i.user_id.id %}">
+User Details
+</a>
+</td>
+
+<td>
+<img src="{{i.vehicle_id.vehicle_photo.url}}">
+</td>
+
+<td>{{i.vehicle_id.vehicle_company.company_name}}</td>
+<td>{{i.vehicle_id.vehicle_model_name.model_name}}</td>
+<td>{{i.vehicle_id.registration_no}}</td>
+<td>{{i.vehicle_id.vehicle_model_year.modelyear_value}}</td>
+<td>{{i.vehicle_id.vehicle_bodytype.bodytype_name}}</td>
+<td>{{i.vehicle_id.vehicle_fuel_type.fueltype_name}}</td>
+<td>{{i.vehicle_id.vehicle_price}}</td>
+
+<td>
+
+{% if i.booking_status == 0 %}
+
+<a class="action-btn accept-btn"
+href="{% url 'Dealer:acptViewBooking' i.id %}">
+Accept
+</a>
+
+<a class="action-btn reject-btn"
+href="{% url 'Dealer:rejctViewBooking' i.id %}">
+Reject
+</a>
+
+{% elif i.booking_status == 1 %}
+
+<span class="status-accepted">Accepted</span>
+
+{% elif i.booking_status == 2 %}
+
+<span class="status-rejected">Rejected</span>
+
+{% elif i.booking_status == 3 %}
+
+<span class="status-paid">
+Paid Advance of {{i.booking_amount}}
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+{% endif %}
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+<div class="booking-card">
+
+<h2 class="booking-title">Rejected Bookings</h2>
+
+<div class="table-container">
+
+<table class="booking-table">
+
+<tr>
+<th>SNo</th>
+<th>User</th>
+<th>Photo</th>
+<th>Company</th>
+<th>Model Name</th>
+<th>Registration No.</th>
+<th>Model Year</th>
+<th>Body Type</th>
+<th>Fuel Type</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+{% for i in bookdata %}
+{% if i.booking_status == 2 %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+
+<td>
+{{i.user_id.user_name}} <br>
+<a class="details-link" href="{% url 'Dealer:UserDetails' i.user_id.id %}">
+User Details
+</a>
+</td>
+
+<td>
+<img src="{{i.vehicle_id.vehicle_photo.url}}">
+</td>
+
+<td>{{i.vehicle_id.vehicle_company.company_name}}</td>
+<td>{{i.vehicle_id.vehicle_model_name.model_name}}</td>
+<td>{{i.vehicle_id.registration_no}}</td>
+<td>{{i.vehicle_id.vehicle_model_year.modelyear_value}}</td>
+<td>{{i.vehicle_id.vehicle_bodytype.bodytype_name}}</td>
+<td>{{i.vehicle_id.vehicle_fuel_type.fueltype_name}}</td>
+<td>{{i.vehicle_id.vehicle_price}}</td>
+
+<td>
+
+{% if i.booking_status == 0 %}
+
+<a class="action-btn accept-btn"
+href="{% url 'Dealer:acptViewBooking' i.id %}">
+Accept
+</a>
+
+<a class="action-btn reject-btn"
+href="{% url 'Dealer:rejctViewBooking' i.id %}">
+Reject
+</a>
+
+{% elif i.booking_status == 1 %}
+
+<span class="status-accepted">Accepted</span>
+
+{% elif i.booking_status == 2 %}
+
+<span class="status-rejected">Rejected <a class="action-btn accept-btn"
+href="{% url 'Dealer:acptViewBooking' i.id %}">
+Accept
+</a></span>
+
+{% elif i.booking_status == 3 %}
+
+<span class="status-paid">
+Paid Advance of {{i.booking_amount}}
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+{% endif %}
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+
+</form>
+
+{% if msg %}
+<script>
+alert('{{msg}}')
+window.location = "{% url 'Dealer:ViewBooking' %}"
+</script>
+{% endif %}
+
+</body>
+</html>
+
+{% endblock content %}

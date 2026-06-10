@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+</head>
+<style>
+
+body{
+    background:#000000;
+    background-image: url("{% static 'Main/images/pagani-huayra-bc-luxury-cars-most-popular-4k-5k-hd-desktop-screensavers-wallpapers-of-2025-for-apple-macbook-air-and-pro-imac-mac-mini-windows-pc-and-more-free-downlo.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;  
+    font-family:'Segoe UI', sans-serif;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* Login Card */
+.login-card{
+    width:400px;
+    background:#000000bd;
+    border:2px solid #fe5b29;
+    border-radius:12px;
+    padding:35px;
+    box-shadow:0 0 25px rgba(254, 91, 41, 0.404);
+    backdrop-filter: blur(4px);   /* blur effect */
+    -webkit-backdrop-filter: blur(10px); /* for Safari */
+}
+.link-btn{
+    background:#fe5b29;
+    color:#000;
+    text-align: center;
+    padding:10px 25px;
+    border-radius:7px;
+    font-weight:600;
+    cursor:pointer;
+    width: 90%;
+    text-decoration:none;
+    display:inline-block;
+    margin:3px auto;
+}
+
+.link-btn:hover{
+    box-shadow:0 0 15px rgba(254,91,41,0.4);
+    background:#000000;
+    color:#fe5b29;
+
+
+}
+
+</style>
+<div class="login-card">
+<body>
+    <table  class="login-table">
+
+<td align="center">
+<tr  ><a class="link-btn" href="{% url 'Guest:NewUser'  %}">
+User SignUp
+</a></tr>
+
+<br>
+<br>
+
+
+<td align="center">
+<tr  ><a class="link-btn" href="{% url 'Guest:NewDealer'  %}">
+Dealer SignUp
+</a></tr>
+</td>
+
+
+
+
+</table>
+
+</div>
+</div>
+</form>
+</body>
+</html>

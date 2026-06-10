@@ -1,0 +1,121 @@
+{% extends 'User/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dealer Details</title>
+
+<style>
+
+body{
+    background:#111;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* Card */
+.dealer-details-card{
+    width:500px;
+    margin:60px auto;
+    background:#000;
+    padding:30px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.5);
+}
+
+/* Title */
+.dealer-details-title{
+    text-align:center;
+    color:#fff;
+    margin-bottom:20px;
+}
+
+/* Table */
+.dealer-details-table{
+    width:100%;
+    border-collapse:collapse;
+    color:#fff;
+}
+
+/* Table cells */
+.dealer-details-table td{
+    padding:12px;
+    border-bottom:1px solid rgba(254,91,41,0.4);
+}
+
+/* Label column */
+.dealer-label{
+    color:#fe5b29;
+    font-weight:600;
+    width:40%;
+}
+
+/* Dealer image */
+.dealer-logo{
+    width:180px;
+    border-radius:10px;
+    border:3px solid #fe5b29;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<form action="">
+
+<div class="dealer-details-card">
+
+<h2 class="dealer-details-title">Dealer Details</h2>
+
+<table class="dealer-details-table">
+
+<tr>
+<td colspan="2" align="center">
+<img class="dealer-logo" src="{{dealerData.dealer_logo.url}}">
+</td>
+</tr>
+
+<tr>
+<td class="dealer-label">Name</td>
+<td>{{dealerData.dealer_name}}</td>
+</tr>
+
+<tr>
+<td class="dealer-label">Email</td>
+<td>{{dealerData.dealer_email}}</td>
+</tr>
+
+<tr>
+<td class="dealer-label">Contact</td>
+<td>{{dealerData.dealer_contact}}</td>
+</tr>
+
+<tr>
+<td class="dealer-label">Address</td>
+<td>{{dealerData.dealer_address}}</td>
+</tr>
+
+<tr>
+<td class="dealer-label">District</td>
+<td>{{dealerData.dealer_place.district_name.district_name}}</td>
+</tr>
+
+<tr>
+<td class="dealer-label">Place</td>
+<td>{{dealerData.dealer_place.place_name}}</td>
+</tr>
+
+</table>
+
+</div>
+
+</form>
+
+</body>
+</html>
+{% endblock content %}
